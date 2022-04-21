@@ -1,7 +1,7 @@
 logging:
   level:
-    root: INFO
     org.springframework.web: INFO
+    org.springframework.security: TRACE
     web: INFO
 
 spring:
@@ -14,29 +14,21 @@ spring:
         registration:
           demo1:
             client-id: spring-bug-1
-            client-secret: <somesecret>
+            client-secret: spring-bug-1
             authorizationGrantType: authorization_code
-            redirect-uri: https://localhost:8443/login/oauth2/code/demo1
+            redirect-uri: "https://127.0.0.1:8443/login/oauth2/code/{registrationId}"
             scope: openid
           demo2:
             client-id: spring-bug-2
-            client-secret: <somesecret>>
+            client-secret: spring-bug-2
             authorizationGrantType: authorization_code
-            redirect-uri: https://localhost:8443/login/oauth2/code/demo2
+            redirect-uri: "https://127.0.0.1:8443/login/oauth2/code/{registrationId}"
             scope: openid
         provider:
           demo1:
-            authorization-uri: https://host/idp/profile/oidc/authorize
-            token-uri: https://host/idp/profile/oidc/token
-            user-info-uri: https://host/idp/profile/oidc/userinfo
-            user-name-attribute: sub
-            jwk-set-uri: https://host/idp/profile/oidc/keyset
+            issuer-uri: http://localhost:9000
           demo2:
-            authorization-uri: https://host2/idp/profile/oidc/authorize
-            token-uri: https://host2/idp/profile/oidc/token
-            user-info-uri: https://host2/idp/profile/oidc/userinfo
-            user-name-attribute: sub
-            jwk-set-uri: https://host2/idp/profile/oidc/keyset
+            issuer-uri: http://localhost:9000
   jpa:
     hibernate:
       ddl-auto: none
