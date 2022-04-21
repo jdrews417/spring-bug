@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+    <title>Demo</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width" />
+    <base href="/" />
+    <link rel="stylesheet" type="text/css"
+          href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+<h1>Login</h1>
+<div class="container unauthenticated">
+    <div>
+        <p>Pick your login method. Username/password for the form login method is pre-filled for you.</p>
+        <form name="login" action="login/form" method="post">
+            <table>
+                <tr>
+                    <td>Login Name:</td>
+                    <td><input type="text" name="username" value="demo"/></td>
+                </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td><input type="password" name="password" value="password"/></td>
+                </tr>
+                <tr>
+                    <td><input name="submit" type="submit" value="submit" /></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div>
+        With OIDC Demo 1: <a href="/oauth2/authorization/demo1">click here</a>
+    </div>
+    <div>
+        With OIDC Demo 2: <a href="/oauth2/authorization/demo2">click here</a>
+    </div>
+</div>
+<div class="container authenticated" style="display: none">
+    Logged in as: <span id="user-info"></span>
+    <div>
+        <button onClick="logout()" class="btn btn-primary">Logout</button>
+    </div>
+    <div>
+        To see your authentication information: <a href="/user-info">click here</a>
+    </div>
+</div>
+<script type="text/javascript" src="/webjars/js-cookie/js.cookie.js"></script>
+<script type="text/javascript">
+    $.ajaxSetup({
+        beforeSend : function(xhr, settings) {
+            if (settings.type == 'POST' || settings.type == 'PUT'
+                || settings.type == 'DELETE') {
+                if (!(/^http:.*/.test(settings.url) || /^https:.*/
+                    .test(settings.url))) {
+                    // Only send the token to relative URLs i.e. locally.
+                    xhr.setRequestHeader("X-XSRF-TOKEN", Cookies
+                        .get('XSRF-TOKEN'));
+                }
+            }
+        }
+    });
+    $.get("/user-info", function(data) {
+        $("#user-info").html(data.name);
+        $(".unauthenticated").hide();
+        $(".authenticated").show();
+    });
+    var logout = function() {
+        $.post("/logout", function() {
+            $("#user-info").html('');
+            $(".unauthenticated").show();
+            $(".authenticated").hide();
+        })
+        return true;
+    }
+</script>
+</body>
+</html>

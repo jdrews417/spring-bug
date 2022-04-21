@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+    <title>Demo</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width" />
+    <base href="/" />
+    <link rel="stylesheet" type="text/css"
+          href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+<h3>Spring Security OAuth2 Bug Demo</h3>
+
+This is a demonstration project to show a bug in the OAuth2 handling of spring security.
+</p>
+To see the bug in action,
+    Click on the <a href="demo/index.html">link here to visit the login page</a>.
+</p>
+The page has 3 methods to login, form based login, and links to
+    two OAuth sources.
+</p>
+No matter which login method you choose, you should end up at the same login form page
+    (which will now indicate you are logged in).
+</p>
+If you end up at THIS page after authenticating, that is the undesired behaviour.
+The form login method works as expected, the OAuth2 methods do not.
+</p>
+</body>
+</html>

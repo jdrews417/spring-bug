@@ -1,0 +1,62 @@
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    web: INFO
+
+spring:
+  mvc:
+    log-request-details: true
+
+  security:
+    oauth2:
+      client:
+        registration:
+          demo1:
+            client-id: spring-bug-1
+            client-secret: <somesecret>
+            authorizationGrantType: authorization_code
+            redirect-uri: https://localhost:8443/login/oauth2/code/demo1
+            scope: openid
+          demo2:
+            client-id: spring-bug-2
+            client-secret: <somesecret>>
+            authorizationGrantType: authorization_code
+            redirect-uri: https://localhost:8443/login/oauth2/code/demo2
+            scope: openid
+        provider:
+          demo1:
+            authorization-uri: https://host/idp/profile/oidc/authorize
+            token-uri: https://host/idp/profile/oidc/token
+            user-info-uri: https://host/idp/profile/oidc/userinfo
+            user-name-attribute: sub
+            jwk-set-uri: https://host/idp/profile/oidc/keyset
+          demo2:
+            authorization-uri: https://host2/idp/profile/oidc/authorize
+            token-uri: https://host2/idp/profile/oidc/token
+            user-info-uri: https://host2/idp/profile/oidc/userinfo
+            user-name-attribute: sub
+            jwk-set-uri: https://host2/idp/profile/oidc/keyset
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+
+  jackson:
+    default-property-inclusion: non_empty
+
+management:
+  info:
+    java:
+      enabled: true
+server:
+  port: 8443
+  ssl:
+    key-alias: localhost
+    key-store:  localhost.p12
+    key-store-password: spring
+    key-password: spring
+  servlet:
+    session:
+      timeout: 15m
+
