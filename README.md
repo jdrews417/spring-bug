@@ -38,8 +38,8 @@ spring:
             jwk-set-uri: https://host/idp/profile/oidc/keyset
 ```
 
-The Demo1 and Demo2 providers can be the same if both demo1 and demo2 can be the same source provider as long as it 
-has the registration information both demo1 and demo2 clients.
+The Demo1 and Demo2 providers can be the same (but both must be defined) if the
+demo1 and demo2 clients are registered on it.
 
 # Running
 
